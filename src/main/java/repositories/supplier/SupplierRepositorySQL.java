@@ -1,6 +1,5 @@
 package repositories.supplier;
 
-import models.Item;
 import models.Supplier;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -51,7 +50,7 @@ public class SupplierRepositorySQL implements SupplierRepository{
 
     @Override
     public Supplier get(int supplierId) {
-        final String query="select * from store.supplier where supplier_id="+supplierId;
+        final String query="select * from store.supplier where supplier_id="+supplierId+";";
         try (Connection connection = sql2o.open()){
             return connection.createQuery(query)
                     .executeAndFetch(Supplier.class).get(0);

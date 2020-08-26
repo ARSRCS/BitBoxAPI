@@ -7,6 +7,11 @@ public class Supplier {
   private String name;
   private String country;
 
+  public Supplier(long id, String nombre, String pais){
+    this.supplierId=id;
+    this.name=nombre;
+    this.country=pais;
+  }
 
   public long getSupplierId() {
     return supplierId;

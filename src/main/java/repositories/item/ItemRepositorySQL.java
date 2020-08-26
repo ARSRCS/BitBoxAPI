@@ -42,7 +42,7 @@ public class ItemRepositorySQL implements ItemRepository{
 
     @Override
     public void update(int itemId, Item updatedItem){
-        final String query="update store.item set description=:descripcion, price=:precio, estate=:estado, supplier=:proveedor, priceReduction=:descuento, creationDate=:fecha, creator=:creador where item_id="+itemId+";";
+        final String query="update store.item set description=:descripcion, price=:precio, state=:estado, suppliers=:proveedor, 'priceReductions'=:descuento, 'creationDate'=:fecha, creator=:creador where item_code="+itemId+";";
         try (Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .addParameter("descripcion",updatedItem.getDescription())

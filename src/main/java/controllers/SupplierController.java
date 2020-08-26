@@ -27,11 +27,13 @@ public class SupplierController {
     public void createSupplier(@RequestBody Supplier supplier){
         createSupplier.execute(supplier);
     }
+
     @ResponseBody
     @PostMapping("/updateSupplier/{id}")
     public void updateSupplier(@PathVariable("id") int supplierId, @RequestBody Supplier updatedSupplier){
         updateSupplier.execute(supplierId,updatedSupplier);
     }
+
     @ResponseBody
     @PostMapping("/deleteSupplier/{id}")
     public void deleteSupplier(@PathVariable("id") int supplierId){
@@ -39,7 +41,7 @@ public class SupplierController {
     }
 
     @ResponseBody
-    @GetMapping("suppliers/{supplierId}")
+    @GetMapping("/suppliers/{supplierId}")
     public Supplier getSupplier(@PathVariable("supplierId") int supplierId){
         return getSupplier.execute(supplierId);
     }

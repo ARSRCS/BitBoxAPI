@@ -13,7 +13,7 @@ import repositories.user.UserRepository;
 import repositories.user.UserRepositorySQL;
 
 @Configuration
-public class ConfigCliente {
+public class Config {
 
     @Value("jdbc:postgresql://localhost:5432/store_db")
     private String connection;
