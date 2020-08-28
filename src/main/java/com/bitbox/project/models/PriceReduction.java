@@ -9,7 +9,7 @@ public class PriceReduction {
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(columnDefinition = "serial")
   private long reductionId;
-  private String reducedPrice;
+  private long reducedPrice;
   private java.sql.Date startDate;
   private java.sql.Date endDate;
 
@@ -23,11 +23,11 @@ public class PriceReduction {
   }
 
 
-  public String getReducedPrice() {
+  public long getReducedPrice() {
     return reducedPrice;
   }
 
-  public void setReducedPrice(String reducedPrice) {
+  public void setReducedPrice(long reducedPrice) {
     this.reducedPrice = reducedPrice;
   }
 

@@ -1,0 +1,51 @@
+Este documento pretende servir de guía muy básica para entender el funcionamiento del programa,
+se detallan algunas llamadas mediante las URLs para que sirvan de ejemplo.
+
+Antes de nada la base de datos se llama "store" y está compuesta por 4 tablas:
+    1.-Tabla "item" que contiene la información de los items que están o han estado disponibles en la tienda.
+    2.-Tabla "price_reduction" que contiene la información de los descuentos que se pueden aplicar a los distintos items.
+    3.-Tabla "supplier" que contiene a los proveedores de los items de la tienda.
+    4.-Tabla "users" que contiene a los usuarios de la aplicación.
+
+Interactuando con la base de datos:
+
+Para obtener los detalles de algún elemento de la base de datos tenemos los get que nos facilitan los detalles del
+elemento consultado mediante la petición al servidor local de la siguiente forma:
+
+    http://localhost:8090/items/1 (que ejecuta la orden [select * from store.item where item_code=itemId] donde itemId es el número que acompaña a la URL)
+
+    De manera análoga podemos hacer las demás consultas a las otras tablas:
+
+    Tabla users: http://localhost:8090/users/3
+    Tabla suppliers: http://localhost:8090/suppliers/1
+    Tabla price_reductions: http://localhost:8090/priceReductions/2
+
+
+    Para crear un elemento dentro de una de las tablas usaremos un Post con los datos del elemento a crear, por ejemplo:
+
+    POST a http://localhost:8090/createItem con el cuerpo:
+        {
+            "description":"Mesas de plastico para fiestas",
+            "price":15.00,
+            "state":"Active",
+            "suppliers":1,
+            "priceReductions":1,
+            "creationDate":"2020-08-25",
+            "creator":"User1"
+        }
+
+    Notamos que no hace falta añadir manualmente el id ya que es un campo autoincremental.
+
+    Funciona de manera análoga para el resto de tablas.
+
+    Para el update sí necesitamos especificar el id pero se hará en la URL que enviaremos con un POST
+
+    POST a http://localhost:8090/updateSupplier/2 con el cuerpo:
+        {
+            "name":"Proovedor actualizado",
+            "country":"UK"
+        }
+
+    Y por último el delete, mediante la URL especificaremos la ID del elemento a borrar de una tabla, no especificamos cuerpo:
+
+    POST a http://localhost:8090/priceReductions/3

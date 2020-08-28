@@ -10,7 +10,7 @@ public class Item {
   @Column(columnDefinition = "serial")
   private long itemCode;
   private String description;
-  private String price;
+  private long price;
   private String state;
   private long suppliers;
   private long priceReductions;
@@ -36,11 +36,11 @@ public class Item {
   }
 
 
-  public String getPrice() {
+  public long getPrice() {
     return price;
   }
 
-  public void setPrice(String price) {
+  public void setPrice(long price) {
     this.price = price;
   }
 

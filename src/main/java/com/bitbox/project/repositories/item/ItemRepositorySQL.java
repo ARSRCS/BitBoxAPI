@@ -16,7 +16,7 @@ public class ItemRepositorySQL implements ItemRepository{
 
     @Override
     public void add(Item item){
-        final String query="insert into store.item(description, price, state, suppliers, \"priceReductions\", \"creationDate\", creator) values (:descripcion,:precio,:estado,:idproveedor,:iddescuento,:fecha,:creador);";
+        final String query="insert into store.item(description, price, state, suppliers, price_reductions, creation_date, creator) values (:descripcion,:precio,:estado,:idproveedor,:iddescuento,:fecha,:creador);";
         try (Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .addParameter("descripcion",item.getDescription())
@@ -42,14 +42,20 @@ public class ItemRepositorySQL implements ItemRepository{
 
     @Override
     public void update(int itemId, Item updatedItem){
-        final String query="update store.item set description=:descripcion, price=:precio, state=:estado, suppliers=:proveedor, 'priceReductions'=:descuento, 'creationDate'=:fecha, creator=:creador where item_code="+itemId+";";
+        final String query="update store.item set description=:descripcion," +
+                " price=:precio, " +
+                " state=:estado," +
+                " suppliers=:proveedor," +
+                " price_reductions =:descuento," +
+                " creation_date=:fecha, " +
+                "creator=:creador where item_code="+itemId+";";
         try (Connection connection = sql2o.open()){
             connection.createQuery(query)
                     .addParameter("descripcion",updatedItem.getDescription())
                     .addParameter("precio",updatedItem.getPrice())
                     .addParameter("estado",updatedItem.getState())
-                    .addParameter("idproveedor",updatedItem.getSuppliers())
-                    .addParameter("iddescuento",updatedItem.getPriceReductions())
+                    .addParameter("proveedor",updatedItem.getSuppliers())
+                    .addParameter("descuento",updatedItem.getPriceReductions())
                     .addParameter("fecha",updatedItem.getCreationDate())
                     .addParameter("creador",updatedItem.getCreator())
                     .executeUpdate();
@@ -58,9 +64,12 @@ public class ItemRepositorySQL implements ItemRepository{
 
     @Override
     public Item get(int itemId){
-        final String query="select * from store.item where item_code="+itemId;
+        final String query="select * from store.item where item_code="+itemId+";";
         try (Connection connection = sql2o.open()){
             return connection.createQuery(query)
+                    .addColumnMapping("item_code","itemCode")
+                    .addColumnMapping("price_reductions","priceReductions")
+                    .addColumnMapping("creation_date","creationDate")
                     .executeAndFetch(Item.class).get(0);
 
         }
